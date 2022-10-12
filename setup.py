@@ -6,15 +6,15 @@ with open("README.md", "r") as readme:
     long_description = readme.read()
 
 setup(
-    name='scrapy-puppeteer-client',
+    name='scrapy-playwright',
     version='0.0.6',
-    description='A library to use Puppeteer-managed browser in Scrapy spiders',
+    description='A library to use Playwright-managed browser in Scrapy spiders',
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url='https://github.com/ispras/scrapy-puppeteer',
+    url='https://github.com/recipopdev/scrapy-playwright/',
     author='MODIS @ ISP RAS',
-    maintainer='Maksim Varlamov',
-    maintainer_email='varlamov@ispras.ru',
+    maintainer='Adimo',
+    maintainer_email='mohammed@adimo.co',
     packages=['scrapypuppeteer'],
     requires=['scrapy'],
     python_requires='>=3.5',
