@@ -6,8 +6,8 @@ with open("README.md", "r") as readme:
     long_description = readme.read()
 
 setup(
-    name='scrapy-playwright',
-    version='0.0.6',
+    name='scrapy-puppeteer-client',
+    version='0.0.7',
     description='A library to use Playwright-managed browser in Scrapy spiders',
     long_description=long_description,
     long_description_content_type="text/markdown",
