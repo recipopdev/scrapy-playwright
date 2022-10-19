@@ -14,6 +14,9 @@ class PuppeteerServiceAction(ABC):
     def payload(self):
         ...
 
+class Test():
+  pass
+
 class GoTo(PuppeteerServiceAction):
     """
     Navigate page to given URL.
