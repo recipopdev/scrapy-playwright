@@ -59,7 +59,7 @@ class GoTo(PuppeteerServiceAction):
 
     endpoint = 'goto'
 
-    def __init__(self, url: str, retailer_config: str = None, navigation_options: dict = None, wait_options: dict = None):
+    def __init__(self, url: str, retailer_config: dict = None, navigation_options: dict = None, wait_options: dict = None):
         self.url = url
         self.retailer_config = retailer_config
         self.navigation_options = navigation_options
