@@ -17,7 +17,7 @@ class PuppeteerServiceAction(ABC):
 class Test():
   pass
 
-class GoTo(PuppeteerServiceAction):
+class Scrape(PuppeteerServiceAction):
     """
     Navigate page to given URL.
 
@@ -59,7 +59,7 @@ class GoTo(PuppeteerServiceAction):
 
     """
 
-    endpoint = 'goto'
+    endpoint = 'scrape'
 
     def __init__(self, url: str, retailer_config: dict = None, navigation_options: dict = None, wait_options: dict = None):
         self.url = url

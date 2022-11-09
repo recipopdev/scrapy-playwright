@@ -3,7 +3,7 @@ from typing import Union
 from scrapy.http import Response, TextResponse
 
 from scrapypuppeteer import PuppeteerRequest
-from scrapypuppeteer.actions import GoTo, PuppeteerServiceAction
+from scrapypuppeteer.actions import Scrape, PuppeteerServiceAction
 
 
 class PuppeteerResponse(Response):
@@ -33,7 +33,7 @@ class PuppeteerResponse(Response):
         page_id = None if self.puppeteer_request.close_page else self.page_id
         if isinstance(action, str):
             action = self.urljoin(action)
-        elif isinstance(action, GoTo):
+        elif isinstance(action, Scrape):
             action.url = self.urljoin(action.url)
         else:
             kwargs['url'] = self.url
@@ -50,9 +50,7 @@ class PuppeteerHtmlResponse(PuppeteerResponse, TextResponse):
 
     def __init__(self, url, puppeteer_request, context_id, page_id, **kwargs):
         self.html = kwargs.pop('html')
-        self.cookies = kwargs.pop('cookies')
         self.data = kwargs.pop('data')
-        # self.service_links = kwargs.pop('service_links')
         kwargs.setdefault('body', self.html)
         kwargs.setdefault('encoding', 'utf-8')
         kwargs.setdefault('headers', {}).setdefault('Content-Type', 'text/html')

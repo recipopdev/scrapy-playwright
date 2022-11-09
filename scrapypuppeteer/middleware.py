@@ -10,7 +10,6 @@ from scrapypuppeteer import PuppeteerRequest, PuppeteerHtmlResponse
 from scrapypuppeteer.actions import CustomJsAction, Screenshot
 from scrapypuppeteer.response import PuppeteerJsonResponse, PuppeteerScreenshotResponse
 
-
 class PuppeteerServiceDownloaderMiddleware:
     """
     This downloader middleware converts PuppeteerRequest instances to
@@ -29,7 +28,11 @@ class PuppeteerServiceDownloaderMiddleware:
 
     @classmethod
     def from_crawler(cls, crawler):
-        service_url = crawler.settings.get('PUPPETEER_SERVICE_URL')
+        # For running locally
+        service_url = crawler.settings.get('PUPPETEER_SERVICE_HOSTNAME')
+        # For production
+        # service_url = crawler.spider.service_hostname
+
         if service_url is None:
             raise ValueError('Puppeteer service URL must be provided')
         middleware = cls(crawler, service_url)
@@ -43,15 +46,11 @@ class PuppeteerServiceDownloaderMiddleware:
 
         action = request.action
         service_url = urljoin(self.service_base_url, action.endpoint)
-        service_params = self._encode_service_params(request)
-        if service_params:
-            service_url += '?' + service_params
 
         return Request(
-            url=service_url,
-            method='POST',
+            url= service_url + '?url=' + request.url,
+            method='GET',
             headers=Headers({'Content-Type': action.content_type}),
-            body=self._serialize_body(action, request),
             dont_filter=True,
             cookies=request.cookies,
             priority=request.priority,

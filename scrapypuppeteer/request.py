@@ -2,7 +2,7 @@ from typing import Union
 
 from scrapy.http import Request
 
-from scrapypuppeteer.actions import GoTo, PuppeteerServiceAction
+from scrapypuppeteer.actions import Scrape, PuppeteerServiceAction
 
 
 class PuppeteerRequest(Request):
@@ -34,13 +34,13 @@ class PuppeteerRequest(Request):
             retailer_config = kwargs.pop('retailer_config', None)
             navigation_options = kwargs.pop('navigation_options', None)
             wait_options = kwargs.pop('wait_options', None)
-            action = GoTo(url, retailer_config, navigation_options=navigation_options, wait_options=wait_options)
-        elif isinstance(action, GoTo):
+            action = Scrape(url, retailer_config, navigation_options=navigation_options, wait_options=wait_options)
+        elif isinstance(action, Scrape):
             url = action.url
         elif not isinstance(action, PuppeteerServiceAction):
             raise ValueError('Undefined browser action')
         if url is None:
-            raise ValueError('Request is not a goto-request and does not follow a response')
+            raise ValueError('Request is not a scrape-request and does not follow a response')
         super().__init__(url, **kwargs)
         self.action = action
         self.context_id = context_id
