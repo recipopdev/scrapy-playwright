@@ -28,10 +28,8 @@ class PuppeteerServiceDownloaderMiddleware:
 
     @classmethod
     def from_crawler(cls, crawler):
-        # For running locally
-        # service_url = crawler.settings.get('PUPPETEER_SERVICE_HOSTNAME')
-        # For production
-        service_url = crawler.spider.service_hostname
+        service_url = "https://" + crawler.settings.get('PUPPETEER_SERVICE_HOSTNAME').replace("retailerId", crawler.spider.retailer_id)
+        print("Service URL:" + str(service_url))
 
         if service_url is None:
             raise ValueError('Puppeteer service URL must be provided')
